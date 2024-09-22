@@ -5,23 +5,18 @@ import User from './components/User';
 import UserInfo from './components/UserInfo';
 import UserTransactions from './components/UserTransactions';
 import NewTransaction from './components/NewTransaction';
+import Signup from './components/Signup';
 import RequireAuth from './components/RequireAuth';
 import Layout from './components/Layout';
-
-// const ROLES = {
-//   'user': 2001,
-//   'Admin': 5150
-// };
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* public routes */}
           <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
 
-          {/* protected routes */}
           <Route element={<RequireAuth allowedRoles={['user']} />}>
             <Route path="/user" element={<User />}>
               <Route path="info" element={<UserInfo />} />
@@ -29,9 +24,6 @@ function App() {
               <Route path="newtransaction" element={<NewTransaction />} />
             </Route>
           </Route>
-
-
-          {/* catch all */}
         </Route>
       </Routes>
     </AuthProvider>

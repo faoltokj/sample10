@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import axios from '../api/axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
 const LOGIN_URL = '/auth/login';
@@ -16,19 +16,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(LOGIN_URL, 
-        JSON.stringify({ email, password }), 
-        { headers: { 'Content-Type': 'application/json' } }
-      );
+      const response = await axios.post(LOGIN_URL, JSON.stringify({ email, password }), { headers: { 'Content-Type': 'application/json' } });
 
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-    console.log(roles)
-      // Set JWT and roles in the AuthContext
-      setAuth({ email, roles, accessToken });
 
-      // Navigate to the user page
-      navigate('/user');
+      setAuth({ email, roles, accessToken });
+      document.cookie = `token=${accessToken}; path=/`; // Set JWT in cookie
+
+      navigate('/user/info'); // Redirect to user info page
     } catch (err) {
       if (!err?.response) {
         setErrorMsg('No Server Response');
@@ -68,6 +64,7 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
     </div>
   );
 };
