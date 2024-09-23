@@ -32,7 +32,7 @@ const UserTransactions = () => {
         <ul>
           {transactions.map((transaction, index) => (
             <li key={index}>
-              {transaction.date}: {transaction.amount} to {transaction.recipientEmail}
+              {transaction.createdAt}: {transaction.amount} to {transaction.recipientEmail}
             </li>
           ))}
         </ul>

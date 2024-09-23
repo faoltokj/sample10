@@ -7,13 +7,22 @@ const SIGNUP_URL = '/auth/signup';
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [verifyPassword, setVerifyPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (password !== verifyPassword) {
+      setErrorMsg('Passwords do not match');
+      return;
+    }
+
     try {
-      await axios.post(SIGNUP_URL, JSON.stringify({ email, password }), { headers: { 'Content-Type': 'application/json' } });
+      await axios.post(SIGNUP_URL, JSON.stringify({ email, password }), { 
+        headers: { 'Content-Type': 'application/json' } 
+      });
       navigate('/login'); // Redirect to login page after signup
     } catch (err) {
       if (err.response) {
@@ -46,6 +55,16 @@ const Signup = () => {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="verifyPassword">Verify Password:</label>
+          <input
+            type="password"
+            id="verifyPassword"
+            value={verifyPassword}
+            onChange={(e) => setVerifyPassword(e.target.value)}
             required
           />
         </div>

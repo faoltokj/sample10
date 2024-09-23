@@ -30,7 +30,6 @@ const User = () => {
       {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
       {userProfile ? (
         <div>
-          <p>Email: {userProfile.email}</p>
           <p>Balance: {userProfile.balance}</p>
           <p>Roles: {userProfile.roles ? userProfile.roles.join(', ') : 'No roles assigned'}</p>
         </div>

@@ -4,25 +4,26 @@ import AuthContext from '../context/AuthContext';
 import axios from '../api/axios';
 
 const UserNavbar = () => {
-  const { setAuth } = useContext(AuthContext);
-  const navigate = useNavigate();
+    const { setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await axios.post('/auth/logout'); // Send logout request to server
-    setAuth({}); // Clear the auth context
-    navigate('/login'); // Redirect to login page
-  };
+    const handleLogout = async () => {
+        await axios.post('/auth/logout'); // Send logout request to server
+        setAuth({}); // Clear the auth context
+        document.cookie = "token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        navigate('/login'); // Redirect to login page
+    };
 
-  return (
-    <nav>
-      <ul>
-        <li><Link to="/user/info">User Info</Link></li>
-        <li><Link to="/user/transactions">Transaction List</Link></li>
-        <li><Link to="/user/newtransaction">New Transaction</Link></li>
-        <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
-      </ul>
-    </nav>
-  );
+    return (
+        <nav>
+            <ul>
+                <li><Link to="/user/info">User Info</Link></li>
+                <li><Link to="/user/transactions">Transaction List</Link></li>
+                <li><Link to="/user/newtransaction">New Transaction</Link></li>
+                <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
+            </ul>
+        </nav>
+    );
 };
 
 export default UserNavbar;
