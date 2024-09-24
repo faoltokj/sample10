@@ -1,19 +1,19 @@
-import React, { createContext, useState, useEffect } from 'react'; // Import createContext
+import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
-const AuthContext = createContext({}); // Define the AuthContext
+const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(sessionStorage.getItem('isAuthenticated'));
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const checkAuth = async () => {
       if (!isAuthenticated || window.location.pathname === '/') {
         const token = document.cookie;
-        
+
         if (token) {
           const jwtToken = token.split('=')[1];
           try {
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     checkAuth();
-  }, [isAuthenticated]); // Add 'navigate' to the dependency array
+  }, [isAuthenticated]);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth, isAuthenticated, setIsAuthenticated }}>

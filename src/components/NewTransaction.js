@@ -20,7 +20,7 @@ const NewTransaction = () => {
         JSON.stringify({ recipientEmail, amount }),
         { headers: { Authorization: `Bearer ${auth?.accessToken}`, 'Content-Type': 'application/json' } }
       );
-      navigate('/user/transactions');  // Navigate to transactions page after successful creation
+      navigate('/user/transactions');
     } catch (err) {
       if (err.response) {
         setErrorMsg(err.response.data.message || 'Failed to create transaction');
@@ -35,22 +35,22 @@ const NewTransaction = () => {
       <Typography variant="h4" mb={2}>New Transaction</Typography>
       {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
       <form onSubmit={handleSubmit}>
-        <TextField 
-          label="Recipient Email" 
-          type="email" 
-          value={recipientEmail} 
-          onChange={(e) => setRecipientEmail(e.target.value)} 
-          fullWidth 
-          required 
+        <TextField
+          label="Recipient Email"
+          type="email"
+          value={recipientEmail}
+          onChange={(e) => setRecipientEmail(e.target.value)}
+          fullWidth
+          required
           margin="normal"
         />
-        <TextField 
-          label="Amount" 
-          type="number" 
-          value={amount} 
-          onChange={(e) => setAmount(e.target.value)} 
-          fullWidth 
-          required 
+        <TextField
+          label="Amount"
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          fullWidth
+          required
           margin="normal"
         />
         <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>

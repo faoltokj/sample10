@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/AuthContext'; // Import AuthContext
+import AuthContext from '../context/AuthContext';
 
 const Unauthorized = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const Unauthorized = () => {
 
   const handleGoHome = () => {
     sessionStorage.setItem('isAuthenticated', 'false');
-    setIsAuthenticated(false); // Set authenticated state to false
+    setIsAuthenticated(false);
     navigate('/');
   };
 

@@ -24,7 +24,7 @@ const Signup = () => {
       await axios.post(SIGNUP_URL, JSON.stringify({ email, password }), { 
         headers: { 'Content-Type': 'application/json' } 
       });
-      navigate('/login'); // Redirect to login page after signup
+      navigate('/login');
     } catch (err) {
       if (err.response) {
         setErrorMsg(err.response.data.message || 'Signup failed');

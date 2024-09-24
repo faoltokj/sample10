@@ -13,8 +13,8 @@ const UserTransactions = () => {
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      setLoading(true); // Start loading
-      setErrorMsg(''); // Reset error message
+      setLoading(true);
+      setErrorMsg('');
       try {
         const response = await axios.get(TRANSACTIONS_URL, {
           headers: { Authorization: `Bearer ${auth?.accessToken}` },
@@ -35,7 +35,7 @@ const UserTransactions = () => {
       } catch (err) {
         setErrorMsg('Failed to load transactions');
       } finally {
-        setLoading(false); // End loading
+        setLoading(false);
       }
     };
 

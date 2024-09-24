@@ -9,30 +9,30 @@ const UserNavbar = () => {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        await axios.post('/auth/logout'); // Send logout request to server
-        setAuth({}); // Clear the auth context
+        await axios.post('/auth/logout');
+        setAuth({});
         document.cookie = "token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-        navigate('/login'); // Redirect to login page
+        navigate('/login');
     };
 
     return (
         <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button 
-                component={Link} 
-                to="/user/info" 
+            <Button
+                component={Link}
+                to="/user/info"
                 variant="outlined"
                 sx={{
                     '&:hover': {
-                        backgroundColor: 'blue', // Blue background on hover
-                        color: 'white', // White text on hover
+                        backgroundColor: 'blue',
+                        color: 'white',
                     }
                 }}
             >
                 User Info
             </Button>
-            <Button 
-                component={Link} 
-                to="/user/transactions" 
+            <Button
+                component={Link}
+                to="/user/transactions"
                 variant="outlined"
                 sx={{
                     '&:hover': {
@@ -43,9 +43,9 @@ const UserNavbar = () => {
             >
                 Transactions
             </Button>
-            <Button 
-                component={Link} 
-                to="/user/newtransaction" 
+            <Button
+                component={Link}
+                to="/user/newtransaction"
                 variant="outlined"
                 sx={{
                     '&:hover': {
