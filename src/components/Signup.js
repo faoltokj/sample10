@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../api/axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { Box, Button, TextField, Typography, Alert } from '@mui/material';
 
 const SIGNUP_URL = '/auth/signup';
 
@@ -34,44 +35,45 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 8 }}>
+      <Typography variant="h4" mb={2}>Sign Up</Typography>
+      {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="verifyPassword">Verify Password:</label>
-          <input
-            type="password"
-            id="verifyPassword"
-            value={verifyPassword}
-            onChange={(e) => setVerifyPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Sign Up</button>
+        <TextField 
+          label="Email" 
+          type="email" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+          fullWidth 
+          required 
+          margin="normal"
+        />
+        <TextField 
+          label="Password" 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+          fullWidth 
+          required 
+          margin="normal"
+        />
+        <TextField 
+          label="Verify Password" 
+          type="password" 
+          value={verifyPassword} 
+          onChange={(e) => setVerifyPassword(e.target.value)} 
+          fullWidth 
+          required 
+          margin="normal"
+        />
+        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+          Sign Up
+        </Button>
       </form>
-      <p>Already have an account? <Link to="/login">Login</Link></p>
-    </div>
+      <Typography mt={2}>
+        Already have an account? <Link to="/login">Login</Link>
+      </Typography>
+    </Box>
   );
 };
 

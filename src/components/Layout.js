@@ -1,15 +1,18 @@
-import { Outlet } from "react-router-dom"
-import Footer from "./Footer"
-import Header from "./Header"
+import { Outlet } from "react-router-dom";
+import Footer from "./Footer";
+import Header from "./Header";
+import { Container, Box } from '@mui/material';
 
 const Layout = () => {
     return (
-        <main className="App">
+        <Box display="flex" flexDirection="column" minHeight="100vh">
             <Header />
-            <Outlet />
+            <Container component="main" sx={{ flexGrow: 1, mt: 4 }}>
+                <Outlet />
+            </Container>
             <Footer />
-        </main>
-    )
-}
+        </Box>
+    );
+};
 
-export default Layout
+export default Layout;

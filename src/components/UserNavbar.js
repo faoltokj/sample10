@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
+import { Box, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import axios from '../api/axios';
@@ -15,14 +16,59 @@ const UserNavbar = () => {
     };
 
     return (
-        <nav>
-            <ul>
-                <li><Link to="/user/info">User Info</Link></li>
-                <li><Link to="/user/transactions">Transaction List</Link></li>
-                <li><Link to="/user/newtransaction">New Transaction</Link></li>
-                <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
-            </ul>
-        </nav>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+            <Button 
+                component={Link} 
+                to="/user/info" 
+                variant="outlined"
+                sx={{
+                    '&:hover': {
+                        backgroundColor: 'blue', // Blue background on hover
+                        color: 'white', // White text on hover
+                    }
+                }}
+            >
+                User Info
+            </Button>
+            <Button 
+                component={Link} 
+                to="/user/transactions" 
+                variant="outlined"
+                sx={{
+                    '&:hover': {
+                        backgroundColor: 'blue',
+                        color: 'white',
+                    }
+                }}
+            >
+                Transactions
+            </Button>
+            <Button 
+                component={Link} 
+                to="/user/newtransaction" 
+                variant="outlined"
+                sx={{
+                    '&:hover': {
+                        backgroundColor: 'blue',
+                        color: 'white',
+                    }
+                }}
+            >
+                New Transaction
+            </Button>
+            <Button
+                onClick={handleLogout}
+                variant="outlined"
+                sx={{
+                    '&:hover': {
+                        backgroundColor: 'blue',
+                        color: 'white',
+                    }
+                }}
+            >
+                Logout
+            </Button>
+        </Box>
     );
 };
 

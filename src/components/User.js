@@ -1,19 +1,19 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import { Outlet } from 'react-router-dom';
 import UserNavbar from './UserNavbar';
+import { Box, Typography } from '@mui/material';
 
 const User = () => {
     const { auth } = useContext(AuthContext);
-    const userEmail = auth?.email;
 
     return (
-        <div>
-            <h2>User Dashboard</h2>
+        <Box sx={{ p: 4 }}>
+            <Typography variant="h4">User Dashboard</Typography>
+            <Typography variant="h6">Welcome, {auth.email}!</Typography>
             <UserNavbar />
             <Outlet />
-            <p>Email: {userEmail}</p>
-        </div>
+        </Box>
     );
 };
 

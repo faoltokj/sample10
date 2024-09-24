@@ -1,11 +1,34 @@
-import React from 'react'
+import React, { useContext } from 'react'; // Import useContext from React
+import { AppBar, Toolbar, Typography, Box, IconButton } from '@mui/material';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import AuthContext from '../context/AuthContext'; // Import AuthContext
 
 const Header = () => {
-    return (
-        <div>
-            Header
-        </div>
-    )
-}
+    const navigate = useNavigate();
+    const { setIsAuthenticated } = useContext(AuthContext);
 
-export default Header
+    const handleGoHome = () => {
+        sessionStorage.setItem('isAuthenticated', 'false');
+        setIsAuthenticated(false); // Set authenticated state to false
+        navigate('/');
+    };
+
+    return (
+        <AppBar position="static" sx={{ backgroundColor: '#1976d2' }}>
+            <Toolbar>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    {/* Icon next to the title */}
+                    <IconButton edge="start" color="inherit" aria-label="logo" sx={{ mr: 1 }} onClick={handleGoHome}>
+                        <AccountBalanceIcon sx={{ fontSize: 32 }} />
+                    </IconButton>
+                    <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+                        Web Banking App
+                    </Typography>
+                </Box>
+            </Toolbar>
+        </AppBar>
+    );
+};
+
+export default Header;

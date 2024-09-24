@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from '../api/axios';
 import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import { Box, Button, TextField, Typography, Alert } from '@mui/material';
 
 const LOGIN_URL = '/auth/login';
 
@@ -22,9 +23,9 @@ const Login = () => {
       const roles = response?.data?.roles;
 
       setAuth({ email, roles, accessToken });
-      document.cookie = `token=${accessToken}; path=/`; // Set JWT in cookie
+      document.cookie = `token=${accessToken}; path=/`;
 
-      navigate('/user/info'); // Redirect to user info page
+      navigate('/user/info');
     } catch (err) {
       if (!err?.response) {
         setErrorMsg('No Server Response');
@@ -37,35 +38,38 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
-      
+    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 8 }}>
+      <Typography variant="h4" mb={2}>Login</Typography>
+      {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
+
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
+        <TextField 
+          label="Email" 
+          type="email" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+          fullWidth 
+          required 
+          margin="normal"
+        />
+        <TextField 
+          label="Password" 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+          fullWidth 
+          required 
+          margin="normal"
+        />
+        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+          Login
+        </Button>
       </form>
-      <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
-    </div>
+
+      <Typography mt={2}>
+        Don't have an account? <Link to="/signup">Sign up</Link>
+      </Typography>
+    </Box>
   );
 };
 
