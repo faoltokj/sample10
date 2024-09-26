@@ -6,7 +6,7 @@ import AuthContext from '../context/AuthContext';
 const Unauthorized = () => {
   const navigate = useNavigate();
   const { setIsAuthenticated } = useContext(AuthContext);
-
+  console.log("Unauthorized")
   const handleGoHome = () => {
     sessionStorage.setItem('isAuthenticated', 'false');
     setIsAuthenticated(false);

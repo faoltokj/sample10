@@ -5,7 +5,7 @@ import { Box, Typography, Alert, CircularProgress, Paper, Stack, Divider } from 
 
 const PROFILE_URL = '/users/profile';
 
-const User = () => {
+const UserInfo = () => {
   const { auth } = useContext(AuthContext);
   const [userProfile, setUserProfile] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
@@ -62,4 +62,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserInfo;

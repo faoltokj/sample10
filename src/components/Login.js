@@ -17,7 +17,9 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(LOGIN_URL, JSON.stringify({ email, password }), { headers: { 'Content-Type': 'application/json' } });
+      const response = await axios.post(LOGIN_URL, JSON.stringify({ email, password }), {
+        headers: { 'Content-Type': 'application/json' }
+      });
 
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
@@ -25,7 +27,12 @@ const Login = () => {
       setAuth({ email, roles, accessToken });
       document.cookie = `token=${accessToken}; path=/`;
 
-      navigate('/user/info');
+      // Navigate based on role
+      if (roles.includes('admin')) {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/user/info');
+      }
     } catch (err) {
       if (!err?.response) {
         setErrorMsg('No Server Response');

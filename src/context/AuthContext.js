@@ -5,34 +5,42 @@ import axios from '../api/axios';
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({});
-  const [isAuthenticated, setIsAuthenticated] = useState(sessionStorage.getItem('isAuthenticated'));
+  const [auth, setAuth] = useState(() => {
+    const storedAuth = sessionStorage.getItem('auth');
+    return storedAuth ? JSON.parse(storedAuth) : {};
+  });
+  const [isAuthenticated, setIsAuthenticated] = useState(sessionStorage.getItem('isAuthenticated') === 'true');
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkAuth = async () => {
-      if (!isAuthenticated || window.location.pathname === '/') {
-        const token = document.cookie;
+      const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+      const jwtToken = token ? token.split('=')[1] : null;
 
-        if (token) {
-          const jwtToken = token.split('=')[1];
-          try {
-            const response = await axios.get('/users/profile', {
-              headers: { Authorization: `Bearer ${jwtToken}` },
-            });
-            const { email, roles } = response.data;
+      if (jwtToken) {
+        try {
+          const response = await axios.get('/users/profile', {
+            headers: { Authorization: `Bearer ${jwtToken}` },
+          });
+          const { email, roles } = response.data;
 
+          if (roles && roles.length) {
             setAuth({ email, roles, accessToken: jwtToken });
             sessionStorage.setItem('isAuthenticated', 'true');
-            setIsAuthenticated('true');
-            navigate('/user/info');
-          } catch (error) {
-            console.error('Error fetching user profile:', error);
-            navigate('/login');
+            sessionStorage.setItem('auth', JSON.stringify({ email, roles, accessToken: jwtToken }));
+            setIsAuthenticated(true);
+
+            // Redirect based on roles
+            if (window.location.pathname === '/') {
+              navigate(roles.includes('admin') ? '/admin/dashboard' : '/user/info');
+            }
           }
-        } else {
+        } catch (error) {
+          console.error('Error fetching user profile:', error);
           navigate('/login');
         }
+      } else {
+        navigate('/login');
       }
     };
 

@@ -16,7 +16,11 @@ const UserNavbar = () => {
     };
 
     return (
-        <Box sx={{ display: 'flex', gap: 2 }}>
+        <Box sx={{
+            display: { xs: 'block', sm: 'flex' },
+            gap: 2,
+            mb: 2
+        }}>
             <Button
                 component={Link}
                 to="/user/info"
@@ -25,7 +29,8 @@ const UserNavbar = () => {
                     '&:hover': {
                         backgroundColor: 'blue',
                         color: 'white',
-                    }
+                    },
+                    width: { xs: '100%', sm: 'auto' } // full width on mobile
                 }}
             >
                 User Info
@@ -38,7 +43,8 @@ const UserNavbar = () => {
                     '&:hover': {
                         backgroundColor: 'blue',
                         color: 'white',
-                    }
+                    },
+                    width: { xs: '100%', sm: 'auto' }
                 }}
             >
                 Transactions
@@ -51,7 +57,8 @@ const UserNavbar = () => {
                     '&:hover': {
                         backgroundColor: 'blue',
                         color: 'white',
-                    }
+                    },
+                    width: { xs: '100%', sm: 'auto' }
                 }}
             >
                 New Transaction
@@ -63,7 +70,8 @@ const UserNavbar = () => {
                     '&:hover': {
                         backgroundColor: 'blue',
                         color: 'white',
-                    }
+                    },
+                    width: { xs: '100%', sm: 'auto' }
                 }}
             >
                 Logout

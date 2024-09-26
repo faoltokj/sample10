@@ -9,6 +9,10 @@ import Signup from './components/Signup';
 import RequireAuth from './components/RequireAuth';
 import Layout from './components/Layout';
 import Unauthorized from './components/Unauthorized';
+import AdminLayout from './components/AdminLayout';
+import AdminDashboard from './components/AdminDashboard';
+import TransactionsById from './components/TransactionsById';
+
 
 function App() {
   return (
@@ -20,10 +24,17 @@ function App() {
           <Route path="unauthorized" element={<Unauthorized />} />
 
           <Route element={<RequireAuth allowedRoles={['user']} />}>
-            <Route path="/user" element={<User />}>
+            <Route path="user" element={<User />}>
               <Route path="info" element={<UserInfo />} />
               <Route path="transactions" element={<UserTransactions />} />
               <Route path="newtransaction" element={<NewTransaction />} />
+            </Route>
+          </Route>
+
+          <Route element={<RequireAuth allowedRoles={['admin']} />}>
+            <Route path="admin" element={<AdminLayout />}>
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="users/:id/transactions" element={<TransactionsById />} />
             </Route>
           </Route>
         </Route>
@@ -33,4 +44,3 @@ function App() {
 }
 
 export default App;
-

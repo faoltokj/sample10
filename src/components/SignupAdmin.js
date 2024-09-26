@@ -3,10 +3,9 @@ import axios from '../api/axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { Box, Button, TextField, Typography, Alert, Checkbox, FormControlLabel } from '@mui/material';
 
-const SIGNUP_URL = '/auth/signup';
 const SIGNUP_ADMIN_URL = '/auth/signup-admin';
 
-const Signup = () => {
+const SignupAdmin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [verifyPassword, setVerifyPassword] = useState('');
@@ -26,14 +25,12 @@ const Signup = () => {
     const signupData = {
       email,
       password,
-      ...(isAdmin && { key: adminKey }), // Send admin key only if isAdmin is true
+      ...(isAdmin && { key: adminKey }) // Send admin key only if isAdmin is true
     };
 
-    const signupUrl = isAdmin ? SIGNUP_ADMIN_URL : SIGNUP_URL; // Determine the URL based on isAdmin
-
     try {
-      await axios.post(signupUrl, JSON.stringify(signupData), {
-        headers: { 'Content-Type': 'application/json' },
+      await axios.post(SIGNUP_ADMIN_URL, JSON.stringify(signupData), { 
+        headers: { 'Content-Type': 'application/json' } 
       });
       alert('Signup successful');
       navigate('/login');
@@ -48,7 +45,7 @@ const Signup = () => {
 
   return (
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 8 }}>
-      <Typography variant="h4" mb={2}>Sign Up</Typography>
+      <Typography variant="h4" mb={2}>Sign Up as Admin</Typography>
       {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
       <form onSubmit={handleSubmit}>
         <TextField
@@ -104,4 +101,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignupAdmin;
