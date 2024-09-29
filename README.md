@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# Bank Web App - React Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+The Bank Web App is a full-stack banking application that enables users to securely manage their finances online. This frontend is built with React and provides a user-friendly interface for interacting with the backend.
 
-In the project directory, you can run:
+## Technologies Used
 
-### `npm start`
+- **React**: For building the user interface.
+- **Axios**: For making HTTP requests to the backend API.
+- **Material-UI**: For implementing responsive and attractive UI components.
+- **JWT**: For secure user authentication and authorization.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Functionality
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The application offers a range of banking functionalities, allowing users to perform essential operations smoothly:
 
-### `npm test`
+1. **User Registration & Login**: 
+   - New users can create accounts by providing their email, password, and phone number.
+   - Existing users can log in using their credentials.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Money Transactions**:
+   - Users can send money to other registered users effortlessly.
+   - The application supports deposits and withdrawals, allowing users to manage their account balances.
 
-### `npm run build`
+3. **Profile Management**:
+   - Users can view their updated profile information and current balance.
+   - Users can update their passwords for enhanced security.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Admin Functions**:
+   - Admin users can view all registered users and their transaction histories.
+   - Admins have the ability to delete users by their ID.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## How It Works
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **User Interface**: The application features a clean and intuitive user interface designed with Material-UI components, providing an engaging user experience.
 
-### `npm run eject`
+2. **API Integration**: The frontend communicates with the backend API using Axios to handle user authentication, transactions, and profile management.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. **Authentication**: 
+   - Upon logging in, users receive a JWT token, which is stored securely in HTTP-only cookies.
+   - The token is used for authenticating requests to protected routes on the backend.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. **Real-Time Updates**: Users can see their transaction history and account balance updated in real-time, providing a seamless banking experience.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Getting Started
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Prerequisites
 
-## Learn More
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+- MongoDB (the server must be running)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 1. Clone the Repository
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+      git clone https://github.com/LeviMaor/BankWebAppFrontend.git
+      cd BankWebAppFrontend
 
-### Code Splitting
+#### 2. Install Dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Run the following command to install the required dependencies:
+   
+      npm install
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 3. Run the Server
+Before running the React app, you need to run the backend server.
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 4. Start the React Application
+   
+      npm start
