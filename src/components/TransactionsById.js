@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from '../api/axios';
 import AuthContext from '../context/AuthContext';
 import {
@@ -14,11 +14,13 @@ import {
     Paper,
     Alert,
     CircularProgress,
-    TablePagination
+    TablePagination,
+    Button // Import Button for delete action
 } from '@mui/material';
 
 const TransactionsById = () => {
     const { id } = useParams(); // Get the ID from URL
+    const navigate = useNavigate(); // Initialize useNavigate for redirection
     const [transactions, setTransactions] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
     const [loading, setLoading] = useState(true);
@@ -27,24 +29,36 @@ const TransactionsById = () => {
     const { auth } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [balance, setBalance] = useState(0);
+    const [isViewedUserAdmin, setIsViewedUserAdmin] = useState(true); // State to check if viewed user is admin
 
     useEffect(() => {
         const fetchTransactions = async () => {
             setLoading(true);
-            setErrorMsg('');
+            setErrorMsg(''); // Clear error message initially
             try {
                 const response = await axios.get(`/transactions/user/${id}`, {
                     headers: { Authorization: `Bearer ${auth?.accessToken}` },
                 });
-                
-                const sortedTransactions = response.data.transactions.sort((a, b) => 
-                    new Date(b.date) - new Date(a.date) 
+
+                const sortedTransactions = response.data.transactions.sort((a, b) =>
+                    new Date(b.date) - new Date(a.date)
                 );
+
                 setTransactions(sortedTransactions);
                 setEmail(response.data.email);
                 setBalance(response.data.balance);
+                setIsViewedUserAdmin(response.data.roles.includes('admin')); // Check if the viewed user is an admin
+
+                // If there are no transactions, clear the error message
+                if (sortedTransactions.length === 0) {
+                    setErrorMsg(''); // Set to empty string when no transactions
+                }
             } catch (error) {
-                setErrorMsg('Failed to load transactions');
+                if (error.response && error.response.status === 404) {
+                    setErrorMsg(''); // Clear error message when no transactions found
+                } else {
+                    setErrorMsg('Failed to load transactions.'); // General error message
+                }
                 console.error('Error fetching transactions:', error);
             } finally {
                 setLoading(false);
@@ -63,6 +77,22 @@ const TransactionsById = () => {
         setPage(0); // Reset to first page
     };
 
+    const handleDeleteUser = async () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this user?");
+        if (confirmDelete) {
+            try {
+                await axios.delete(`/users/${id}`, {
+                    headers: { Authorization: `Bearer ${auth?.accessToken}` },
+                });
+                alert("User deleted successfully.");
+                navigate('/admin/dashboard'); // Redirect to /admin/dashboard after deletion
+            } catch (error) {
+                console.error('Error deleting user:', error);
+                alert("Failed to delete user."); // Show alert on delete failure
+            }
+        }
+    };
+
     // Calculate the current transactions to display
     const currentTransactions = transactions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
@@ -77,6 +107,19 @@ const TransactionsById = () => {
             </Typography>
 
             {errorMsg && <Alert severity="error" sx={{ mb: 2 }}>{errorMsg}</Alert>}
+
+            {/* Delete User Button - only show if the viewed user is not an admin */}
+            {!isViewedUserAdmin && (
+                <Box display="flex" justifyContent="flex-end" sx={{ mt: 2 }}>
+                    <Button 
+                        variant="contained" 
+                        color="error" 
+                        onClick={handleDeleteUser}
+                    >
+                        Delete User
+                    </Button>
+                </Box>
+            )}
 
             {loading ? (
                 <Box display="flex" justifyContent="center" alignItems="center" minHeight="300px">
